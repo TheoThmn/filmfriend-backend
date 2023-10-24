@@ -1,8 +1,6 @@
 package webtech.filmfriend;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class HelloController {
@@ -17,7 +15,19 @@ public class HelloController {
     }
 
     @GetMapping("/user/{userid}/password/{password}")
-    public String user(@PathVariable int userid, @PathVariable String password) {
+    public String userPath(@PathVariable int userid, @PathVariable String password) {
         return "Hello User! Your ID is " + userid + "! Your password is " + password + "!";
+    }
+
+    @GetMapping("/user")
+    public String userQuery(@RequestParam int userid, @RequestParam String password) {
+        return "Hello User! Your ID is " + userid + "! Your password is " + password + "!";
+    // http://localhost:8080/user?password=pass&userid=1234
+    }
+
+    @GetMapping("/user-agent")
+    public String userAgent(@RequestHeader("User-Agent") String userAgent) {
+        return "Hello User! Your User-Agent is " + userAgent + "!";
+    // http://localhost:8080/user-agent
     }
 }
